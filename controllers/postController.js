@@ -2,11 +2,32 @@ const arrayPosts = require("../data/posts");
 
 function index(req, res) {
 
-    res.send('Lista delle pizze');
+    // res.send('Lista delle pizze');
+    res.json(arrayPosts);
 
 }
 function show(req, res) {
-    res.send('Dettagli del post ' + req.params.id);
+    // res.send('Dettagli del post ' + req.params.id);
+
+    const id = parseInt(req.params.id)
+
+
+    const post = arrayPosts.find(post => post.id === id);
+
+
+    if (!post) {
+
+        res.status(404);
+
+        return res.json({
+            status: 404,
+            error: "Not Found",
+            message: "post non trovato"
+        })
+    }
+
+
+    res.json(post);
 }
 
 function store(req, res) {
@@ -23,9 +44,34 @@ function patch(req, res) {
 
 function destroy(req, res) {
 
-    res.send('Eliminazione del post' + req.params.id);
+    // res.send('Eliminazione del post' + req.params.id);
 
+
+    const id = parseInt(req.params.id)
+
+
+    const post = arrayPosts.find(post => post.id === id);
+
+
+    if (!post) {
+
+        res.status(404);
+
+        return res.json({
+            status: 404,
+            error: "Not Found",
+            message: "post non trovato"
+        })
+    }
+
+
+
+    arrayPosts.splice(arrayPosts.indexOf(post), 1);
+
+    res.sendStatus(204)
+
+    console.log(arrayPosts);
 }
 
-// esportiamo tutto
+// let's exports everything
 module.exports = { index, show, store, update, patch, destroy }
