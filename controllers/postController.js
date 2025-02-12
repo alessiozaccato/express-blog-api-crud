@@ -3,7 +3,20 @@ const arrayPosts = require("../data/posts");
 function index(req, res) {
 
     // res.send('Lista delle pizze');
-    res.json(arrayPosts);
+
+    // res.json(arrayPosts);
+
+    let filteredPosts = arrayPosts;
+
+
+    if (req.query.tags) {
+        filteredPosts = arrayPosts.filter(
+            post => post.tags.includes(req.query.tags)
+        );
+    }
+
+
+    res.json(filteredPosts);
 
 }
 function show(req, res) {
@@ -68,9 +81,8 @@ function destroy(req, res) {
 
     arrayPosts.splice(arrayPosts.indexOf(post), 1);
 
-    res.sendStatus(204)
+    res.sendStatus(204);
 
-    console.log(arrayPosts);
 }
 
 // let's exports everything
