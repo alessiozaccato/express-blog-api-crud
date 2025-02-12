@@ -19,3 +19,16 @@ Implementare un filtro di ricerca nella index che mostri solo i post che hanno u
 In Show e Destroy, controllare se il parametro si riferisce ad un post esistente, in caso contrario, rispondere con uno stato 404 e un messaggio d’errore, sempre in formato JSON.
 */
 
+const express = require("express");
+const app = express();
+const port = 3000;
+
+const postsRouter = require('./routers/posts.js');
+
+app.use(express.static('public'));
+app.use("/posts", postsRouter);
+
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+});
