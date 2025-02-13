@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const arrayPosts = require("../data/posts");
 const { index, show, store, update, patch, destroy } = require('../controllers/postController');
 
 // index

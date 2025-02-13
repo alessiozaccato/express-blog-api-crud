@@ -44,7 +44,27 @@ function show(req, res) {
 }
 
 function store(req, res) {
-    res.send('Creazione nuovo post');
+    // res.send('Creazione nuovo post');
+    const newId = arrayPosts[arrayPosts.length - 1].id + 1;
+
+    // Creiamo un nuovo oggetto pizza
+    const newPost = {
+        id: newId,
+        title: req.body.title,
+        image: req.body.image,
+        tags: req.body.tags
+    }
+
+    // Aggiungiamo la nuova pizza al arrayPizzas
+    arrayPosts.push(newPost);
+
+    // controlliamo
+    console.log(arrayPosts);
+
+
+    // Restituiamo lo status corretto e la pizza appena creata
+    res.status(201);
+    res.json(newPost);
 }
 
 function update(req, res) {

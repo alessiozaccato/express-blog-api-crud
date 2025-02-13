@@ -25,6 +25,9 @@ const port = 3000;
 
 const postsRouter = require('./routers/posts.js');
 
+//body parser
+app.use(express.json());
+
 app.use(express.static('public'));
 app.use("/posts", postsRouter);
 
