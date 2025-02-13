@@ -170,3 +170,4 @@ function destroy(req, res) {
 
 // let's exports everything
 module.exports = { index, show, store, update, patch, destroy }
+
