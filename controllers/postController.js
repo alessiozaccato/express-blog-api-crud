@@ -47,32 +47,95 @@ function store(req, res) {
     // res.send('Creazione nuovo post');
     const newId = arrayPosts[arrayPosts.length - 1].id + 1;
 
-    // Creiamo un nuovo oggetto pizza
+    // Creiamo un nuovo oggetto post
     const newPost = {
         id: newId,
         title: req.body.title,
         image: req.body.image,
+        content: req.body.content,
         tags: req.body.tags
     }
 
-    // Aggiungiamo la nuova pizza al arrayPizzas
+    // Aggiungiamo il nuovo post in arrayPosts
     arrayPosts.push(newPost);
 
     // controlliamo
     console.log(arrayPosts);
 
 
-    // Restituiamo lo status corretto e la pizza appena creata
+    // Restituiamo lo status corretto e il post appena creato
     res.status(201);
     res.json(newPost);
 }
 
 function update(req, res) {
-    res.send('Modifica integrale del post ' + req.params.id);
+    // res.send('Modifica integrale del post ' + req.params.id);
+    const id = parseInt(req.params.id)
+
+    // cerchiamo il post tramite id
+    const post = arrayPosts.find(post => post.id === id);
+
+    // Piccolo controllo
+    if (!post) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "Post non trovato"
+        })
+    }
+
+    // Aggiorniamo il post
+    post.title = req.body.title;
+    post.image = req.body.image;
+    post.content = req.body.content;
+    post.tags = req.body.tags;
+
+    // uso il for in che fa la stessa cosa
+    // for (let key in req.body) {
+    //     post[key] = req.body[key];
+    //     post[key] = req.body[key];
+    //     post[key] = req.body[key];
+    //     post[key] = req.body[key];
+    // }
+
+    // Controlliamo l'arrayPosts
+    console.log(arrayPosts)
+
+    // Restituiamo il post appena aggiornato
+    res.json(post);
 }
 
 function patch(req, res) {
-    res.send('Modifica parziale del post ' + req.params.id);
+    // res.send('Modifica parziale del post ' + req.params.id);
+    // recuperiamo l'id dall' URL e trasformiamolo in numero
+    const id = parseInt(req.params.id)
+
+    // cerchiamo il post tramite id
+    const post = arrayPosts.find(post => post.id === id);
+
+    // Piccolo controllo
+    if (!post) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "Post non trovato"
+        })
+    }
+
+
+    for (let key in req.body) {
+        post[key] = req.body[key];
+    }
+
+
+    // Controlliamo il arrayPosts
+    console.log(arrayPosts)
+
+    // Restituiamo la pizza appena aggiornata
+    res.json(post);
+
 }
 
 function destroy(req, res) {
