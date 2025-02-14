@@ -8,6 +8,9 @@ function index(req, res) {
 
     let filteredPosts = arrayPosts;
 
+    //to chech the 500 internal server error
+    // pippo();
+
 
     if (req.query.tags) {
         filteredPosts = arrayPosts.filter(

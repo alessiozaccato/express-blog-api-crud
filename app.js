@@ -24,12 +24,18 @@ const app = express();
 const port = 3000;
 
 const postsRouter = require('./routers/posts.js');
+const errorsHandler = require('./middlewares/errorsHandler.js');
+const notFound = require('./middlewares/notFound.js');
+
+app.use("/posts", postsRouter);
+app.use(express.static('public'));
 
 //body parser
 app.use(express.json());
 
-app.use(express.static('public'));
-app.use("/posts", postsRouter);
+//middlewares
+app.use(errorsHandler);
+app.use(notFound);
 
 
 app.listen(port, () => {
