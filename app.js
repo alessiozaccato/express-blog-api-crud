@@ -23,6 +23,9 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+//import of cors installed 
+const cors = require("cors");
+
 const postsRouter = require('./routers/posts.js');
 const errorsHandler = require('./middlewares/errorsHandler.js');
 const notFound = require('./middlewares/notFound.js');
@@ -36,6 +39,10 @@ app.use(express.json());
 //middlewares
 app.use(errorsHandler);
 app.use(notFound);
+// middleware per il CORS
+app.use(cors({
+    origin: 'http://localhost:5173'
+}));
 
 
 app.listen(port, () => {
