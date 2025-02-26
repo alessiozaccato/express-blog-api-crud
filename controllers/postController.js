@@ -7,6 +7,13 @@ function index(req, res) {
     // res.json(arrayPosts);
 
     let filteredPosts = arrayPosts;
+    // filteredPosts è un array di oggetti. Lo devo ciclare (posso anche fare un map), 
+    // per modificare tutti gli elementi in modo che la chiave image sia = baseUrl + image const baseUrl = "http://localhost:3000";
+
+    //to fix the path of the image with server default port
+    // const urlBase = "http://localhost:3000"
+    // filteredPosts.map((post) => post.image = urlBase + post.image)
+
 
     //to chech the 500 internal server error
     // pippo();
