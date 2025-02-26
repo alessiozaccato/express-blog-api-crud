@@ -21,28 +21,34 @@ In Show e Destroy, controllare se il parametro si riferisce ad un post esistente
 
 const express = require("express");
 const app = express();
-const port = 3000;
 
 //import of cors installed 
 const cors = require("cors");
+const port = 3000;
 
 const postsRouter = require('./routers/posts.js');
+
 const errorsHandler = require('./middlewares/errorsHandler.js');
 const notFound = require('./middlewares/notFound.js');
 
-app.use("/posts", postsRouter);
-app.use(express.static('public'));
-
-//body parser
-app.use(express.json());
-
-//middlewares
-app.use(errorsHandler);
-app.use(notFound);
 // middleware per il CORS
 app.use(cors({
     origin: 'http://localhost:5173'
 }));
+
+app.use("/posts", postsRouter);
+app.use(express.static('public'));
+
+
+//body parser
+app.use(express.json());
+
+
+//middlewares
+
+app.use(errorsHandler);
+app.use(notFound);
+
 
 
 app.listen(port, () => {
